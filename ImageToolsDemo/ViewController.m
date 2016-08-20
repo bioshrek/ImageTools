@@ -104,9 +104,11 @@
     
     for (NSInteger i = startIndex; i < startIndex + 4; i++) {
         UIImageOrientation orientation = [[self class] orientationAtIndex:i];
-        NSString *text = [[self class] stringForOrientation:orientation];
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
-        [button setTitle:text forState:UIControlStateNormal];
+        UIImage *image = [[self class] imageForOrientation:orientation];
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        [button setImage:image forState:UIControlStateNormal];
+        [button setBackgroundImage:[UIImage imageNamed:@"background_blue"]
+                          forState:UIControlStateSelected];
         [button addTarget:self
                    action:action
          forControlEvents:UIControlEventTouchUpInside];
@@ -158,13 +160,33 @@
     return stringsWithOrientationKeys[@(orientation)];
 }
 
++ (UIImage *)imageForOrientation:(UIImageOrientation)orientation
+{
+    static NSDictionary *imageNamesWithOrientationKeys;
+    if (nil == imageNamesWithOrientationKeys) {
+        imageNamesWithOrientationKeys =
+        @{
+          @(UIImageOrientationUp) : @"orientation_up",
+          @(UIImageOrientationLeft) : @"orientation_left",
+          @(UIImageOrientationRight) : @"orientation_right",
+          @(UIImageOrientationDown) : @"orientation_down",
+          @(UIImageOrientationUpMirrored) : @"orientation_up_mirrored",
+          @(UIImageOrientationLeftMirrored) : @"orientation_left_mirrored",
+          @(UIImageOrientationRightMirrored) : @"orientation_right_mirrored",
+          @(UIImageOrientationDownMirrored) : @"orientation_down_mirrored"
+          };
+    }
+    NSString *imageName = imageNamesWithOrientationKeys[@(orientation)];
+    return imageName ? [UIImage imageNamed:imageName] : nil;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
     self.selectedButtonIndex = -1;
     
-    self.transformedImageView.backgroundColor = [UIColor lightGrayColor];
+    self.transformedImageView.image = [UIImage imageNamed:@"picture-add"];
     self.transformedImageView.contentMode = UIViewContentModeScaleAspectFit;
     
     self.bitmapImageView.contentMode = UIViewContentModeScaleAspectFit;
