@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		11561A8E1E5C358000F067A4 /* UIImage+clip.m in Sources */ = {isa = PBXBuildFile; fileRef = 11561A8D1E5C358000F067A4 /* UIImage+clip.m */; };
 		11B04EC21D66C58F00F707ED /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B04EBA1D66C58F00F707ED /* AppDelegate.m */; };
 		11B04EC31D66C58F00F707ED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 11B04EBB1D66C58F00F707ED /* Assets.xcassets */; };
 		11B04EC41D66C58F00F707ED /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11B04EBC1D66C58F00F707ED /* LaunchScreen.storyboard */; };
@@ -20,6 +21,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		11561A8C1E5C358000F067A4 /* UIImage+clip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+clip.h"; sourceTree = "<group>"; };
+		11561A8D1E5C358000F067A4 /* UIImage+clip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+clip.m"; sourceTree = "<group>"; };
 		11B04E9A1D66C0C900F707ED /* ImageTools.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageTools.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		11B04EB91D66C58F00F707ED /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		11B04EBA1D66C58F00F707ED /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -93,6 +96,8 @@
 			children = (
 				11B04EC91D66C5F400F707ED /* UIImage+hw_resize.h */,
 				11B04ECA1D66C5F400F707ED /* UIImage+hw_resize.m */,
+				11561A8C1E5C358000F067A4 /* UIImage+clip.h */,
+				11561A8D1E5C358000F067A4 /* UIImage+clip.m */,
 			);
 			path = ImageTools;
 			sourceTree = "<group>";
@@ -253,6 +258,7 @@
 				11B04EC61D66C58F00F707ED /* main.m in Sources */,
 				11B04EED1D66FB2400F707ED /* NSArray+HW_PureLayout.m in Sources */,
 				11B04ECB1D66C5F400F707ED /* UIImage+hw_resize.m in Sources */,
+				11561A8E1E5C358000F067A4 /* UIImage+clip.m in Sources */,
 				11B04EC21D66C58F00F707ED /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

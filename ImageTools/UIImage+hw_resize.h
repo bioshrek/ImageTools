@@ -39,4 +39,12 @@
 
 - (UIImage *)hw_transformImageToOrientation:(UIImageOrientation)orientation;
 
+/**
+ *  从一个orientation变换到另一个orientation需要作出的transform
+ */
++ (CGAffineTransform)transformFromSourceOrientation:(UIImageOrientation)src
+								  toDestOrientation:(UIImageOrientation)dest
+											   size:(CGSize)size
+										sizeFlipped:(BOOL *)_sizeFlipped;  // output
+
 @end
