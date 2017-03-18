@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "8F49A52611F1C3BDB87BEEBAC18933911DCB3845",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "523836C4E1DB3219EBDAF772C8744848FED2F3D1" : 0,
+    "8F49A52611F1C3BDB87BEEBAC18933911DCB3845" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "7B3B02BB-FB6B-4DD6-81F4-36FF3D36F552",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "523836C4E1DB3219EBDAF772C8744848FED2F3D1" : "ImageTools\/PureLayoutExtension\/",
+    "8F49A52611F1C3BDB87BEEBAC18933911DCB3845" : "ImageTools\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "ImageTools",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "ImageTools.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/bioshrek\/PureLayoutExtension.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "523836C4E1DB3219EBDAF772C8744848FED2F3D1"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:bioshrek\/ImageTools.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "8F49A52611F1C3BDB87BEEBAC18933911DCB3845"
+    }
+  ]
+}

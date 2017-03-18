@@ -204,14 +204,19 @@ typedef NS_ENUM(NSInteger, UIImageOrientationRotation) {
     // use CGFloat value will cause CGPostError when calling CGBitmapContextCreate
     size_t width = ceil(size.width);
     size_t height = ceil(size.height);
-	
+    
+    CGColorSpaceRef colorSpace = CGImageGetColorSpace(image);
+    size_t numberOfComponents = CGColorSpaceGetNumberOfComponents(colorSpace) + 1;  // alpha channel
+    size_t bitsPerComponent = CGImageGetBitsPerComponent(image);
+    size_t bytesPerRow = width * numberOfComponents * bitsPerComponent / 8;
+    CGBitmapInfo bitmapInfo = CGImageGetBitmapInfo(image);
     CGContextRef context = CGBitmapContextCreate(NULL,
                                                  width,
                                                  height,
-                                                 CGImageGetBitsPerComponent(image),
-                                                 CGImageGetBytesPerRow(image),
-                                                 CGImageGetColorSpace(image),
-                                                 CGImageGetBitmapInfo(image));
+                                                 bitsPerComponent,
+                                                 bytesPerRow,
+                                                 colorSpace,
+                                                 bitmapInfo);
     
     if (!context) {
         return NULL;
