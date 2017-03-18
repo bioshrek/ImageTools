@@ -97,9 +97,13 @@ typedef NS_ENUM(NSInteger, UIImageOrientationRotation) {
 
 #pragma mark - resize
 
-- (UIImage *)hw_resizedImageToSize:(CGSize)boundingSize
+- (UIImage *)hw_resizedImageToSize:(CGSize)targetSize
                     scaleIfSmaller:(BOOL)scale
 {
+	const CGSize normalizedSize = [[self class] normalizeSize:targetSize imageOrientation:self.imageOrientation];
+	const CGSize boundingSize = CGSizeMake(normalizedSize.width * self.scale,
+										  normalizedSize.height * self.scale);
+	
     CGImageRef imgRef = self.CGImage;
     // the below values are regardless of orientation : for UIImages from Camera, width>height (landscape)
     CGSize  srcSize = CGSizeMake(CGImageGetWidth(imgRef), CGImageGetHeight(imgRef)); // not equivalent to self.size (which is dependant on the imageOrientation)!
@@ -132,6 +136,14 @@ typedef NS_ENUM(NSInteger, UIImageOrientationRotation) {
     CFRelease(resizedCGImage);
     
     return resizedImage;
+}
+
++ (CGSize)normalizeSize:(CGSize)size imageOrientation:(UIImageOrientation)imageOrientation
+{
+	CGAffineTransform transform = [self transformFromSourceOrientation:UIImageOrientationUp
+															 toDestOrientation:imageOrientation
+																		  size:size];
+	return CGSizeApplyAffineTransform(size, transform);
 }
 
 - (CGSize)scaledSizeForSize:(CGSize)srcSize
@@ -192,19 +204,14 @@ typedef NS_ENUM(NSInteger, UIImageOrientationRotation) {
     // use CGFloat value will cause CGPostError when calling CGBitmapContextCreate
     size_t width = ceil(size.width);
     size_t height = ceil(size.height);
-    
-    CGColorSpaceRef colorSpace = CGImageGetColorSpace(image);
-    size_t numberOfComponents = CGColorSpaceGetNumberOfComponents(colorSpace) + 1;  // alpha channel
-    size_t bitsPerComponent = CGImageGetBitsPerComponent(image);
-    size_t bytesPerRow = width * numberOfComponents * bitsPerComponent / 8;
-    CGBitmapInfo bitmapInfo = CGImageGetBitmapInfo(image);
+	
     CGContextRef context = CGBitmapContextCreate(NULL,
                                                  width,
                                                  height,
-                                                 bitsPerComponent,
-                                                 bytesPerRow,
-                                                 colorSpace,
-                                                 bitmapInfo);
+                                                 CGImageGetBitsPerComponent(image),
+                                                 CGImageGetBytesPerRow(image),
+                                                 CGImageGetColorSpace(image),
+                                                 CGImageGetBitmapInfo(image));
     
     if (!context) {
         return NULL;
@@ -260,14 +267,12 @@ typedef NS_ENUM(NSInteger, UIImageOrientationRotation) {
                  toOrientation:(UIImageOrientation)destOrientation
                      imageSize:(CGSize)size
 {
-    BOOL sizeFlipped = NO;
     CGAffineTransform transform =
     [self transformFromSourceOrientation:srcOrientation
                        toDestOrientation:destOrientation
-                                    size:size
-                             sizeFlipped:&sizeFlipped];
+                                    size:size];
     
-    CGSize drawSize = sizeFlipped ? CGSizeMake(size.height, size.width) : size;
+    CGSize drawSize = CGSizeApplyAffineTransform(size, transform);
     
     // !!! important
     // use CGFloat value will cause CGPostError when calling CGBitmapContextCreate
@@ -304,7 +309,6 @@ typedef NS_ENUM(NSInteger, UIImageOrientationRotation) {
 + (CGAffineTransform)transformFromSourceOrientation:(UIImageOrientation)src
                                   toDestOrientation:(UIImageOrientation)dest
                                                size:(CGSize)size
-                                        sizeFlipped:(BOOL *)_sizeFlipped  // output
 {
     if (src == dest) {
         return CGAffineTransformIdentity;
@@ -325,9 +329,6 @@ typedef NS_ENUM(NSInteger, UIImageOrientationRotation) {
     // flip
     
     BOOL sizeFlipped = (rotation % 2);
-    if (_sizeFlipped) {
-        *_sizeFlipped = sizeFlipped;
-    }
     CGFloat flippingWidth = sizeFlipped ? size.height : size.width;
     BOOL flipped = (destEncoding.mirrored != srcEncoding.mirrored);
     CGAffineTransform flipTransform = flipped ?

@@ -44,7 +44,6 @@
  */
 + (CGAffineTransform)transformFromSourceOrientation:(UIImageOrientation)src
 								  toDestOrientation:(UIImageOrientation)dest
-											   size:(CGSize)size
-										sizeFlipped:(BOOL *)_sizeFlipped;  // output
+											   size:(CGSize)size;
 
 @end

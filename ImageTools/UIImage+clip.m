@@ -21,8 +21,7 @@
 	CGAffineTransform transform =
 	[[self class] transformFromSourceOrientation:UIImageOrientationUp
 							   toDestOrientation:self.imageOrientation
-											size:self.size
-									 sizeFlipped:NULL];
+											size:self.size];
 	const CGRect subRect = CGRectApplyAffineTransform(clippingRect, transform);
 	
 	// 然后将rect的单位从point变为pixel
